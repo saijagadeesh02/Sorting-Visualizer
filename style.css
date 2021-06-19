@@ -1,0 +1,42 @@
+.header {
+    display: flex;
+    background-color: rgba(136, 202, 30, 0.562);
+    position: relative;
+    height: 100px;
+}
+
+.bubble-sort {
+    display: flex;
+    padding-left: 800px;
+    width: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.insertion-sort {
+    display: flex;
+    width: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.selection-sort {
+    display: flex;
+    width: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.quick-sort {
+    display: flex;
+    width: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.merge-sort {
+    display: flex;
+    width: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
