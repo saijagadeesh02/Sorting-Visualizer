@@ -1,34 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script src="index.js"></script>
 </head>
+
 <body>
     <div class="header">
-        <div class="bubble-sort">
-            <button>Bubble sort</button>
-        </div>
-        <div class="insertion-sort">
-            <button>insertion sort</button>
-        </div>
-        <div class="selection-sort">
-            <button>selection sort</button>
-        </div>
-        <div class="quick-sort">
-            <button>quick sort</button>
-        </div>
-        <div class="merge-sort">
-            <button>merge sort</button>
-        </div>
+        <button class="bubble-sort">Bubble sort</button>
+        <button class="insertion-sort">insertion sort</button>
+        <button class="selection-sort">selection sort</button>
+        <button class="quick-sort">quick sort</button>
+        <button class="merge-sort">merge sort</button>
     </div>
 
     <div class="side-bar">
-
+        <span>Generate Array</span>
+        <div>
+            <input type="range" min="6" max="100" value="6" class="array-size" id="mySize">
+        </div>
+        <span>Speed</span>
+        <div>
+            <input type="range" min="6" max="100" value="6" class="sort-speed" id="mySpeed">
+        </div>
     </div>
+
+    <div class="screen">
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>
