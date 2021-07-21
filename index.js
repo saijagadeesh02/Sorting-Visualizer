@@ -6,9 +6,15 @@ function createRandomElements(size) {
     screen.innerHTML = ``;
     for (let i = 0; i < size; i++) {
         let bar = document.createElement('div');
-        bar.style.height = `${Math.floor(Math.random()*95 + 5)}%`;
+        let randomNum = Math.floor(Math.random()*95 + 5)
+        bar.style.height = `${randomNum}%`;
+        if (size < 40){
+            bar.innerText = `${randomNum}`;
+            bar.style.textAlign = 'center';
+            bar.style.color = 'black';
+        }
         bar.style.width = "3%";
-        bar.style.backgroundColor = 'black';
+        bar.style.backgroundColor = 'gold';
         bar.style.marginLeft = size > 77 ? "0.2%" : "0.5%";
         barFragments.append(bar);
     }
@@ -23,7 +29,7 @@ function handleSortClick(event) {
     if (event.target.nodeName.toLowerCase() !== "button")
         return;
     if (event.target.className === "bubble-sort")
-        bubbleSort(screen.childNodes)
+        bubbleSort([...screen.childNodes])
 }
 
 coreButtons.addEventListener('click', handleSortClick);
@@ -35,13 +41,20 @@ sizeSlider.addEventListener('input', () => {
     createRandomElements(sizeSlider.value)
 })
 
-function bubbleSort(nodeList) {
-    const totalLen = nodeList.length
-    for (let i=0; i<totalLen; i++) {
-        for (let j=i+1; j<totalLen; j++){
-            if (getInteger(nodeList[i]) > getInteger(nodeList[j]))
-                swap(i, j, nodeList)
+async function bubbleSort(nodeList){
+    let isSorted = false;
+    let count = 1;
+    while(!isSorted){
+        isSorted = true;
+        for(let i = 0 ; i < nodeList.length - count ; i++){
+          if(getInteger(nodeList[i]) > getInteger(nodeList[i+1])){
+            isSorted = false;
+            nodeList[i].style.backgroundColor = 'white';nodeList[i+1].style.backgroundColor = 'white';
+            await swap(i, i + 1, nodeList);
+            nodeList[i].style.backgroundColor = 'gold';nodeList[i+1].style.backgroundColor = 'gold';
         }
+      }
+      count++;
     }
 }
 
@@ -50,7 +63,11 @@ function getInteger(node) {
 }
 
 function swap(i, j, nodeList){
-    let temp = nodeList[j].cloneNode()
-    nodeList[j] = nodeList[i].cloneNode()
-    nodeList[i] = temp.cloneNode()
+    return new Promise((resolve, reject) => {
+        setTimeout(()=>{
+            [nodeList[i].style.height,nodeList[j].style.height] =  [nodeList[j].style.height,nodeList[i].style.height];
+            [nodeList[i].innerText,nodeList[j].innerText] =  [nodeList[j].innerText,nodeList[i].innerText];
+            resolve();
+        }, 400);   
+    })
 }
