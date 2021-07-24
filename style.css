@@ -1,10 +1,11 @@
 body{
-    background-color: black;
+    background-color: white;
 }
 .header {
     display: flex;
     position: relative;
     height: 100px;
+    /* transform: translate(-50%, -50%); */
 }
 
 .bubble-sort {
@@ -38,10 +39,47 @@ body{
     padding-bottom: 20px;
 }
 
+.btn {
+    width: 180px;
+    height: 60px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #91C9FF;
+    outline: none;
+    transition: 1s ease-in-out;
+  }
+  
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    fill: none;
+    stroke: #fff;
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+  }
+  
+  .btn:hover {
+    transition: 1s ease-in-out;
+    background: #4F95DA;
+  }
+  
+  .btn:hover svg {
+    stroke-dashoffset: -480;
+  }
+  
+  .btn span {
+    color: white;
+    font-size: 18px;
+    font-weight: 100;
+  }
+  
+
 .side-bar {
     display: flex;
     flex-direction: column;
-    color: blanchedalmond;
+    color: black;
     width: 170px;
     border:  2px solid red;
     margin-left: 20px;

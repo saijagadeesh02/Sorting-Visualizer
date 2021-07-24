@@ -28,19 +28,27 @@ const coreButtons = document.querySelector('.header');
 function handleSortClick(event) {
     if (event.target.nodeName.toLowerCase() !== "button")
         return;
-    if (event.target.className === "bubble-sort")
+    if (event.target.className.split(' ')[0] === "bubble-sort")
         bubbleSort([...screen.childNodes])
 }
 
 coreButtons.addEventListener('click', handleSortClick);
 
-// Slider operations
+// Slider operation for size
 const sizeSlider = document.getElementById('mySize');
 
 sizeSlider.addEventListener('input', () => {
     createRandomElements(sizeSlider.value)
 })
 
+// Slider operation for speed
+const speedSlider = document.getElementById('mySpeed');
+
+speedSlider.addEventListener('input', () => {
+    console.log(speedSlider.value)
+})
+
+// Bubble sort
 async function bubbleSort(nodeList){
     let isSorted = false;
     let count = 1;
@@ -68,6 +76,6 @@ function swap(i, j, nodeList){
             [nodeList[i].style.height,nodeList[j].style.height] =  [nodeList[j].style.height,nodeList[i].style.height];
             [nodeList[i].innerText,nodeList[j].innerText] =  [nodeList[j].innerText,nodeList[i].innerText];
             resolve();
-        }, 400);   
+        }, (1/speedSlider.value)*5000);
     })
 }
