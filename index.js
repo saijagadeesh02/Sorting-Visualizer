@@ -14,7 +14,8 @@ function createRandomElements(size) {
             bar.style.color = 'black';
         }
         bar.style.width = "3%";
-        bar.style.backgroundColor = 'gold';
+        bar.style.backgroundColor = 'blue';
+        bar.style.transition = '0.5s';
         bar.style.marginLeft = size > 77 ? "0.2%" : "0.5%";
         barFragments.append(bar);
     }
@@ -50,19 +51,17 @@ speedSlider.addEventListener('input', () => {
 
 // Bubble sort
 async function bubbleSort(nodeList){
-    let isSorted = false;
-    let count = 1;
-    while(!isSorted){
-        isSorted = true;
-        for(let i = 0 ; i < nodeList.length - count ; i++){
-          if(getInteger(nodeList[i]) > getInteger(nodeList[i+1])){
-            isSorted = false;
-            nodeList[i].style.backgroundColor = 'white';nodeList[i+1].style.backgroundColor = 'white';
-            await swap(i, i + 1, nodeList);
-            nodeList[i].style.backgroundColor = 'gold';nodeList[i+1].style.backgroundColor = 'gold';
+
+    for(let i = 0 ; i < nodeList.length ; i++){
+        for(let j = 0 ; j < nodeList.length - i - 1; j++){
+            if(getInteger(nodeList[j]) > getInteger(nodeList[j+1])){
+                nodeList[j].style.backgroundColor = 'white';nodeList[j+1].style.backgroundColor = 'white';
+                await swap(j, j+1, nodeList);
+                await makeSleep()
+                nodeList[j].style.backgroundColor = 'blue';nodeList[j+1].style.backgroundColor = 'blue';
+            }
         }
-      }
-      count++;
+        nodeList[nodeList.length - i -1].style.backgroundColor = 'rgb(231, 103, 103)';
     }
 }
 
@@ -76,6 +75,14 @@ function swap(i, j, nodeList){
             [nodeList[i].style.height,nodeList[j].style.height] =  [nodeList[j].style.height,nodeList[i].style.height];
             [nodeList[i].innerText,nodeList[j].innerText] =  [nodeList[j].innerText,nodeList[i].innerText];
             resolve();
-        }, (1/speedSlider.value)*5000);
+        }, (1/speedSlider.value)*7000);
+    })
+}
+
+function makeSleep(){
+    return new Promise((resolve,reject) => {
+        (setTimeout(()=>{
+            resolve();
+        },(1/speedSlider.value)*7000))
     })
 }
