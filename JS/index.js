@@ -1,5 +1,4 @@
-import { bubbleSort } from './bubble_sort.js'
-import { insertionSort } from './insertion_sort.js'
+import { bubbleSort, insertionSort } from './sort.js'
 
 
 const screen = document.querySelector('.screen');

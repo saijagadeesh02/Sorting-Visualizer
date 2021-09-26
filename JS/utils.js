@@ -21,11 +21,13 @@ function swap(i, j, nodeList){
     })
 }
 
-function makeSleep(){
+function makeSleep(sleep_time=null){
+    if (sleep_time === null)
+        sleep_time = (1/speedSlider.value)*7000
     return new Promise((resolve,reject) => {
         (setTimeout(()=>{
             resolve();
-        },(1/speedSlider.value)*7000))
+        },sleep_time))
     })
 }
 
