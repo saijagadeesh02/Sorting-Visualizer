@@ -18,21 +18,25 @@ async function bubbleSort(nodeList){
 
 }
 
+
+// Insertion Sort
 const insertionSort = async (nodeList) => {
     
     for(let i=1; i<nodeList.length; i++){
         let cur_idx = i;let cur_sorted_idx = i
         for(let j=i-1;j>=0;j--){
             if (getInteger(nodeList[j]) > getInteger(nodeList[cur_idx])){
-                nodeList[j].style.backgroundColor = 'white';nodeList[cur_idx].style.backgroundColor = 'white';
+                nodeList[j].style.backgroundColor = 'red';nodeList[cur_idx].style.backgroundColor = 'white';
                 await swap(j, cur_idx, nodeList)
                 await makeSleep()
-                nodeList[j].style.backgroundColor = 'blue';nodeList[cur_idx].style.backgroundColor = 'blue';
+                nodeList[j].style.backgroundColor = 'red';nodeList[cur_idx].style.backgroundColor = 'blue';
                 cur_idx = j
             }
+            else{
+                break;
+            }
         }
-        fillSortedArray(0, cur_sorted_idx+1, nodeList)
-        await makeSleep(0.5)
+        await fillSortedArray(0, cur_sorted_idx+1, nodeList)
         
     }
 }
@@ -41,7 +45,7 @@ const fillSortedArray = async (start, end, nodeList) => {
     for(let i=start; i<end; i++){
         nodeList[i].style.backgroundColor = 'green';
         // nodeList[i].style.transition = '0.2s ease-in-out';
-        await makeSleep(200)
+        await makeSleep()
     }
 }
 
