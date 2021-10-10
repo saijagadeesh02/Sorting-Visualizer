@@ -41,6 +41,53 @@ const insertionSort = async (nodeList) => {
     }
 }
 
+// Selection sort
+const selectionSort = async (nodeList) => {
+    for(let i=0; i<nodeList.length; i++){
+        let cur_min = i;
+        nodeList[i].style.backgroundColor = 'white';
+        for(let j=i+1; j<nodeList.length; j++){
+            if (getInteger(nodeList[j])  < getInteger(nodeList[cur_min])){
+                cur_min = j;
+            }
+        }
+        nodeList[cur_min].style.backgroundColor = 'red';
+        await swap(i, cur_min, nodeList)
+        await makeSleep()
+        nodeList[i].style.backgroundColor = 'blue';
+        nodeList[cur_min].style.backgroundColor = 'blue';
+        await fillSortedArray(i, i+1, nodeList)
+    }
+    return array;
+}
+
+const quickSort = async (start, end, nodeList) => {
+    if (start < end){
+        let p = await partitionArray(start, end, nodeList);
+        console.log(p)
+        nodeList[p].style.backgroundColor = 'green';
+        quickSort(start, p, nodeList)
+        quickSort(p+1, end, nodeList)
+    }
+}
+
+const partitionArray = async (start, end, nodeList) => {
+    let cur_pivot = end-1
+    nodeList[cur_pivot].style.backgroundColor = 'red';
+    let i = start - 1
+    for (let j=start; j<end; j++){
+        if (getInteger(nodeList[j]) < getInteger(nodeList[cur_pivot])){
+            i = i+1
+            await swap(i, j, nodeList)
+            await makeSleep()
+        }
+    }
+    nodeList[cur_pivot].style.backgroundColor = 'blue';
+    await swap(i+1, cur_pivot, nodeList)
+    await makeSleep()
+    return i+1;
+}
+
 const fillSortedArray = async (start, end, nodeList) => {
     for(let i=start; i<end; i++){
         nodeList[i].style.backgroundColor = 'green';
@@ -49,4 +96,4 @@ const fillSortedArray = async (start, end, nodeList) => {
     }
 }
 
-export { bubbleSort, insertionSort };
+export { bubbleSort, insertionSort, selectionSort, quickSort };
