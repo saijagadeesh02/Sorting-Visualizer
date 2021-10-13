@@ -21,6 +21,17 @@ function swap(i, j, nodeList){
     })
 }
 
+function copyElement(i, nodeList, array){
+    return new Promise((resolve, reject) => {
+        setTimeout(()=>{
+            console.log(nodeList[i].innerText, array[i].innerText)
+            [nodeList[i].style.height,nodeList[i].innerText] =  [array[i].style.height,array[i].innerText];
+            makeSleep()
+            resolve();
+        }, (1/speedSlider.value)*7000);
+    })
+}
+
 function makeSleep(sleep_time=null){
     if (sleep_time === null)
         sleep_time = (1/speedSlider.value)*7000
@@ -31,4 +42,4 @@ function makeSleep(sleep_time=null){
     })
 }
 
-export {makeSleep, swap, getInteger};
+export {makeSleep, swap, copyElement, getInteger};

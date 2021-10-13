@@ -1,4 +1,4 @@
-import { bubbleSort, insertionSort, selectionSort, quickSort } from './sort.js'
+import { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort } from './sort.js'
 
 
 const screen = document.querySelector('.screen');
@@ -38,6 +38,8 @@ function handleSortClick(event) {
         selectionSort([...screen.childNodes])
     if (event.target.className.split(' ')[0] === "quick-sort")
         quickSort(0, screen.childNodes.length, [...screen.childNodes])
+    if (event.target.className.split(' ')[0] === "merge-sort")
+        mergeSort(0, screen.childNodes.length, [...screen.childNodes])
 }
 
 coreButtons.addEventListener('click', handleSortClick);

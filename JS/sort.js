@@ -1,4 +1,4 @@
-import { makeSleep, swap, getInteger } from './utils.js'
+import { makeSleep, swap, copyElement, getInteger } from './utils.js'
 
 // Bubble sort
 async function bubbleSort(nodeList){
@@ -64,7 +64,6 @@ const selectionSort = async (nodeList) => {
 const quickSort = async (start, end, nodeList) => {
     if (start < end){
         let p = await partitionArray(start, end, nodeList);
-        console.log(p)
         nodeList[p].style.backgroundColor = 'green';
         quickSort(start, p, nodeList)
         quickSort(p+1, end, nodeList)
@@ -72,20 +71,75 @@ const quickSort = async (start, end, nodeList) => {
 }
 
 const partitionArray = async (start, end, nodeList) => {
-    let cur_pivot = end-1
+    let cur_pivot = end-1;
     nodeList[cur_pivot].style.backgroundColor = 'red';
-    let i = start - 1
+    let i = start - 1;
     for (let j=start; j<end; j++){
         if (getInteger(nodeList[j]) < getInteger(nodeList[cur_pivot])){
-            i = i+1
+            i = i+1;
+            nodeList[j].style.backgroundColor = 'white';nodeList[i].style.backgroundColor = 'white';
             await swap(i, j, nodeList)
             await makeSleep()
+            nodeList[j].style.backgroundColor = 'blue';nodeList[i].style.backgroundColor = 'blue';
         }
     }
-    nodeList[cur_pivot].style.backgroundColor = 'blue';
     await swap(i+1, cur_pivot, nodeList)
     await makeSleep()
+    nodeList[cur_pivot].style.backgroundColor = 'blue';
     return i+1;
+}
+
+async function merge(bars, left, mid, right) {
+    let temp_bars = [];
+    let i = left,
+      j = mid + 1,
+      k = left;
+  
+    for (let itr1 = left; itr1 < mid; itr1++) {
+      bars[itr1].style.backgroundColor = `deepskyblue`;
+    }
+    for (let itr2 = mid; itr2 < right; itr2++) {
+      bars[itr2].style.backgroundColor = `coral`;
+    }
+  
+    while (i < mid && j < right) {
+      if (parseInt(bars[i].style.height) < parseInt(bars[j].style.height)) {
+        temp_bars.push(parseInt(bars[i].style.height));
+        i++;
+      } else {
+        temp_bars.push(parseInt(bars[j].style.height));
+        j++;
+      }
+    }
+    while (i < mid) {
+      temp_bars.push(parseInt(bars[i].style.height));
+      i++;
+    }
+    while (j < right) {
+      temp_bars.push(parseInt(bars[j].style.height));
+      j++;
+    }
+    for (let i = 0; i < temp_bars.length; i++) {
+        bars[k].style.height = `${temp_bars[i]}%`;
+        bars[k].innerText = temp_bars[i];
+        k++;
+        await makeSleep()
+    }
+  
+    for (let itr1 = left; itr1 < mid; itr1++) {
+      bars[itr1].style.backgroundColor = `purple`;
+    }
+    for (let itr2 = mid; itr2 < right; itr2++) {
+      bars[itr2].style.backgroundColor = `purple`;
+    }
+}
+
+async function mergeSort(left, right, bars) {
+    if (left >= right) return;
+    let mid = Math.floor((left + right) / 2);
+    await mergeSort(left, mid, bars);
+    await mergeSort(mid + 1, right, bars);
+    await merge(bars, left, mid, right);
 }
 
 const fillSortedArray = async (start, end, nodeList) => {
@@ -96,4 +150,4 @@ const fillSortedArray = async (start, end, nodeList) => {
     }
 }
 
-export { bubbleSort, insertionSort, selectionSort, quickSort };
+export { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort };
