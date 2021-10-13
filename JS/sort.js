@@ -95,14 +95,14 @@ async function merge(bars, left, mid, right) {
       j = mid + 1,
       k = left;
   
-    for (let itr1 = left; itr1 < mid; itr1++) {
+    for (let itr1 = left; itr1 <= mid; itr1++) {
       bars[itr1].style.backgroundColor = `deepskyblue`;
     }
-    for (let itr2 = mid; itr2 < right; itr2++) {
+    for (let itr2 = mid + 1; itr2 <= right; itr2++) {
       bars[itr2].style.backgroundColor = `coral`;
     }
   
-    while (i < mid && j < right) {
+    while (i <= mid && j <= right) {
       if (parseInt(bars[i].style.height) < parseInt(bars[j].style.height)) {
         temp_bars.push(parseInt(bars[i].style.height));
         i++;
@@ -111,25 +111,27 @@ async function merge(bars, left, mid, right) {
         j++;
       }
     }
-    while (i < mid) {
+    while (i <= mid) {
       temp_bars.push(parseInt(bars[i].style.height));
       i++;
     }
-    while (j < right) {
+    while (j <= right) {
       temp_bars.push(parseInt(bars[j].style.height));
       j++;
     }
     for (let i = 0; i < temp_bars.length; i++) {
+    //   await makeSleep();
+    //   changeHeightOfDomBar(bars[k++], temp_bars[i]);
         bars[k].style.height = `${temp_bars[i]}%`;
-        bars[k].innerText = temp_bars[i];
+        bars[k].innerText = `${temp_bars[i]}`;
         k++;
-        await makeSleep()
+        await makeSleep();
     }
   
-    for (let itr1 = left; itr1 < mid; itr1++) {
+    for (let itr1 = left; itr1 <= mid; itr1++) {
       bars[itr1].style.backgroundColor = `purple`;
     }
-    for (let itr2 = mid; itr2 < right; itr2++) {
+    for (let itr2 = mid + 1; itr2 <= right; itr2++) {
       bars[itr2].style.backgroundColor = `purple`;
     }
 }

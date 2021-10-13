@@ -39,7 +39,7 @@ function handleSortClick(event) {
     if (event.target.className.split(' ')[0] === "quick-sort")
         quickSort(0, screen.childNodes.length, [...screen.childNodes])
     if (event.target.className.split(' ')[0] === "merge-sort")
-        mergeSort(0, screen.childNodes.length, [...screen.childNodes])
+        mergeSort(0, screen.childNodes.length-1, [...screen.childNodes])
 }
 
 coreButtons.addEventListener('click', handleSortClick);
