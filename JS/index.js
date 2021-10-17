@@ -45,12 +45,7 @@ async function handleSortClick(event) {
     btnTag.style.backgroundColor = 'grey';
     
     disableButtons()
-    if (btnClicked === "quick-sort")
-        await sortContainer[btnClicked](0, screen.childNodes.length, [...screen.childNodes])
-    else if (btnClicked === "merge-sort")
-        await sortContainer[btnClicked](0, screen.childNodes.length-1, [...screen.childNodes])
-    else
-        await sortContainer[btnClicked]([...screen.childNodes])
+    await sortContainer[btnClicked]([...screen.childNodes])
     btnTag.style.backgroundColor = 'white';
     enableButtons()
 }

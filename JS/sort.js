@@ -61,12 +61,17 @@ const selectionSort = async (nodeList) => {
     return nodeList;
 }
 
-const quickSort = async (start, end, nodeList) => {
+const quickSort = async(nodeList) => {
+    let start = 0, end = nodeList.length;
+    await quickSortHelper(start, end, nodeList)
+}
+
+const quickSortHelper = async (start, end, nodeList) => {
     if (start < end){
         let p = await partitionArray(start, end, nodeList);
         nodeList[p].style.backgroundColor = ' #80ffbf';
-        await quickSort(start, p, nodeList)
-        await quickSort(p+1, end, nodeList)
+        await quickSortHelper(start, p, nodeList)
+        await quickSortHelper(p+1, end, nodeList)
     }
 }
 
@@ -89,7 +94,7 @@ const partitionArray = async (start, end, nodeList) => {
     return i+1;
 }
 
-async function merge(bars, left, mid, right) {
+async function merge(bars, left, mid, right, isInnerText) {
     let temp_bars = [];
     let i = left,
       j = mid + 1,
@@ -123,7 +128,9 @@ async function merge(bars, left, mid, right) {
     //   await makeSleep();
     //   changeHeightOfDomBar(bars[k++], temp_bars[i]);
         bars[k].style.height = `${temp_bars[i]}%`;
+        if (isInnerText === true){
         bars[k].innerText = `${temp_bars[i]}`;
+        console.log('changing text', left, mid, right)}
         k++;
         await makeSleep();
     }
@@ -136,12 +143,18 @@ async function merge(bars, left, mid, right) {
     }
 }
 
-async function mergeSort(left, right, bars) {
+async function mergeSortHelper(left, right, bars, isInnerText){
     if (left >= right) return;
     let mid = Math.floor((left + right) / 2);
-    await mergeSort(left, mid, bars);
-    await mergeSort(mid + 1, right, bars);
-    await merge(bars, left, mid, right);
+    await mergeSortHelper(left, mid, bars, isInnerText);
+    await mergeSortHelper(mid + 1, right, bars, isInnerText);
+    await merge(bars, left, mid, right, isInnerText);
+}
+
+async function mergeSort(bars) {
+    let isInnerText = bars.length < 40;
+    let left = 0, right = bars.length-1;
+    await mergeSortHelper(left, right, bars, isInnerText)
 }
 
 const fillSortedArray = async (start, end, nodeList) => {
