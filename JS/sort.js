@@ -1,4 +1,4 @@
-import { makeSleep, swap, copyElement, getInteger } from './utils.js'
+import { makeSleep, swap, getInteger } from './utils.js'
 
 // Bubble sort
 async function bubbleSort(nodeList){
@@ -6,7 +6,7 @@ async function bubbleSort(nodeList){
     for(let i = 0 ; i < nodeList.length ; i++){
         for(let j = 0 ; j < nodeList.length - i - 1; j++){
             if(getInteger(nodeList[j]) > getInteger(nodeList[j+1])){
-                nodeList[j].style.backgroundColor = 'white';nodeList[j+1].style.backgroundColor = 'white';
+                nodeList[j].style.backgroundColor = 'coral';nodeList[j+1].style.backgroundColor = 'coral';
                 await swap(j, j+1, nodeList);
                 await makeSleep()
                 nodeList[j].style.backgroundColor = 'blue';nodeList[j+1].style.backgroundColor = 'blue';
@@ -26,7 +26,7 @@ const insertionSort = async (nodeList) => {
         let cur_idx = i;let cur_sorted_idx = i
         for(let j=i-1;j>=0;j--){
             if (getInteger(nodeList[j]) > getInteger(nodeList[cur_idx])){
-                nodeList[j].style.backgroundColor = 'red';nodeList[cur_idx].style.backgroundColor = 'white';
+                nodeList[j].style.backgroundColor = 'red';nodeList[cur_idx].style.backgroundColor = 'coral';
                 await swap(j, cur_idx, nodeList)
                 await makeSleep()
                 nodeList[j].style.backgroundColor = 'red';nodeList[cur_idx].style.backgroundColor = 'blue';
@@ -45,7 +45,7 @@ const insertionSort = async (nodeList) => {
 const selectionSort = async (nodeList) => {
     for(let i=0; i<nodeList.length; i++){
         let cur_min = i;
-        nodeList[i].style.backgroundColor = 'white';
+        nodeList[i].style.backgroundColor = 'coral';
         for(let j=i+1; j<nodeList.length; j++){
             if (getInteger(nodeList[j])  < getInteger(nodeList[cur_min])){
                 cur_min = j;
@@ -58,13 +58,13 @@ const selectionSort = async (nodeList) => {
         nodeList[cur_min].style.backgroundColor = 'blue';
         await fillSortedArray(i, i+1, nodeList)
     }
-    return array;
+    return nodeList;
 }
 
 const quickSort = async (start, end, nodeList) => {
     if (start < end){
         let p = await partitionArray(start, end, nodeList);
-        nodeList[p].style.backgroundColor = 'green';
+        nodeList[p].style.backgroundColor = ' #80ffbf';
         await quickSort(start, p, nodeList)
         await quickSort(p+1, end, nodeList)
     }
@@ -77,7 +77,7 @@ const partitionArray = async (start, end, nodeList) => {
     for (let j=start; j<end; j++){
         if (getInteger(nodeList[j]) < getInteger(nodeList[cur_pivot])){
             i = i+1;
-            nodeList[j].style.backgroundColor = 'white';nodeList[i].style.backgroundColor = 'white';
+            nodeList[j].style.backgroundColor = 'coral';nodeList[i].style.backgroundColor = 'coral';
             await swap(i, j, nodeList)
             await makeSleep()
             nodeList[j].style.backgroundColor = 'blue';nodeList[i].style.backgroundColor = 'blue';
@@ -129,10 +129,10 @@ async function merge(bars, left, mid, right) {
     }
   
     for (let itr1 = left; itr1 <= mid; itr1++) {
-      bars[itr1].style.backgroundColor = `purple`;
+      bars[itr1].style.backgroundColor = ` #80ffbf`;
     }
     for (let itr2 = mid + 1; itr2 <= right; itr2++) {
-      bars[itr2].style.backgroundColor = `purple`;
+      bars[itr2].style.backgroundColor = ` #80ffbf`;
     }
 }
 
@@ -146,7 +146,7 @@ async function mergeSort(left, right, bars) {
 
 const fillSortedArray = async (start, end, nodeList) => {
     for(let i=start; i<end; i++){
-        nodeList[i].style.backgroundColor = 'green';
+        nodeList[i].style.backgroundColor = ' #80ffbf';
         nodeList[i].style.transition = '0.2s ease-in-out';
         await makeSleep()
     }

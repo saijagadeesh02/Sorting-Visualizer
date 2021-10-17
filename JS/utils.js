@@ -3,7 +3,7 @@
 const speedSlider = document.getElementById('mySpeed');
 
 speedSlider.addEventListener('input', () => {
-    console.log(speedSlider.value)
+    // console.log(speedSlider.value)
 })
 
 
@@ -21,16 +21,28 @@ function swap(i, j, nodeList){
     })
 }
 
-function copyElement(i, nodeList, array){
-    return new Promise((resolve, reject) => {
-        setTimeout(()=>{
-            console.log(nodeList[i].innerText, array[i].innerText)
-            [nodeList[i].style.height,nodeList[i].innerText] =  [array[i].style.height,array[i].innerText];
-            makeSleep()
-            resolve();
-        }, (1/speedSlider.value)*7000);
-    })
+function enableButtons(){
+    let buttons = document.querySelectorAll('.btn')
+    for (let i=0;i < buttons.length; i++){
+        // console.log(buttons[i].disabled)
+        buttons[i].disabled = false;
+    }
+
+    let rangeSlider = document.getElementById('mySize')
+    rangeSlider.disabled = false
 }
+
+function disableButtons(){
+    let buttons = document.querySelectorAll('.btn')
+    for (let i=0;i < buttons.length; i++){
+        // console.log(buttons[i].disabled)
+        buttons[i].disabled = true;
+    }
+
+    let rangeSlider = document.getElementById('mySize')
+    rangeSlider.disabled = true
+}
+
 
 function makeSleep(sleep_time=null){
     if (sleep_time === null)
@@ -42,4 +54,4 @@ function makeSleep(sleep_time=null){
     })
 }
 
-export {makeSleep, swap, copyElement, getInteger};
+export {makeSleep, swap, getInteger, enableButtons, disableButtons};

@@ -1,11 +1,19 @@
 import { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort } from './sort.js'
-
+import { disableButtons, enableButtons } from './utils.js';
 
 const screen = document.querySelector('.screen');
 const coreButtons = document.querySelector('.header');
 coreButtons.addEventListener('click', handleSortClick);
 // Slider operation for size
 const sizeSlider = document.getElementById('mySize');
+
+const sortContainer = {
+    'bubble-sort' : bubbleSort,
+    'insertion-sort' : insertionSort,
+    'selection-sort' : selectionSort,
+    'quick-sort' : quickSort,
+    'merge-sort' : mergeSort
+}
 
 function createRandomElements(size) {
     const barFragments = document.createDocumentFragment();
@@ -28,19 +36,23 @@ function createRandomElements(size) {
     screen.append(barFragments)
 }
 
-function handleSortClick(event) {
+async function handleSortClick(event) {
     if (event.target.nodeName.toLowerCase() !== "button")
         return;
-    if (event.target.className.split(' ')[0] === "bubble-sort")
-        bubbleSort([...screen.childNodes])
-    if (event.target.className.split(' ')[0] === "insertion-sort")
-        insertionSort([...screen.childNodes])
-    if (event.target.className.split(' ')[0] === "selection-sort")
-        selectionSort([...screen.childNodes])
-    if (event.target.className.split(' ')[0] === "quick-sort")
-        quickSort(0, screen.childNodes.length, [...screen.childNodes])
-    if (event.target.className.split(' ')[0] === "merge-sort")
-        mergeSort(0, screen.childNodes.length-1, [...screen.childNodes])
+    
+    let btnClicked = event.target.className.split(' ')[0]
+    let btnTag = document.querySelector(`.${btnClicked}`)
+    btnTag.style.backgroundColor = 'grey';
+    
+    disableButtons()
+    if (btnClicked === "quick-sort")
+        await sortContainer[btnClicked](0, screen.childNodes.length, [...screen.childNodes])
+    else if (btnClicked === "merge-sort")
+        await sortContainer[btnClicked](0, screen.childNodes.length-1, [...screen.childNodes])
+    else
+        await sortContainer[btnClicked]([...screen.childNodes])
+    btnTag.style.backgroundColor = 'white';
+    enableButtons()
 }
 
 sizeSlider.addEventListener('input', () => {
