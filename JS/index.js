@@ -2,8 +2,13 @@ import { bubbleSort, insertionSort, selectionSort, quickSort, mergeSort } from '
 
 
 const screen = document.querySelector('.screen');
-const barFragments = document.createDocumentFragment();
+const coreButtons = document.querySelector('.header');
+coreButtons.addEventListener('click', handleSortClick);
+// Slider operation for size
+const sizeSlider = document.getElementById('mySize');
+
 function createRandomElements(size) {
+    const barFragments = document.createDocumentFragment();
     screen.innerHTML = ``;
     for (let i = 0; i < size; i++) {
         let bar = document.createElement('div');
@@ -23,10 +28,6 @@ function createRandomElements(size) {
     screen.append(barFragments)
 }
 
-createRandomElements(6);
-
-const coreButtons = document.querySelector('.header');
-
 function handleSortClick(event) {
     if (event.target.nodeName.toLowerCase() !== "button")
         return;
@@ -42,12 +43,8 @@ function handleSortClick(event) {
         mergeSort(0, screen.childNodes.length-1, [...screen.childNodes])
 }
 
-coreButtons.addEventListener('click', handleSortClick);
-
-// Slider operation for size
-const sizeSlider = document.getElementById('mySize');
-
 sizeSlider.addEventListener('input', () => {
     createRandomElements(sizeSlider.value)
 })
 
+createRandomElements(10);

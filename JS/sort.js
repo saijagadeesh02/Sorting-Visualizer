@@ -65,8 +65,8 @@ const quickSort = async (start, end, nodeList) => {
     if (start < end){
         let p = await partitionArray(start, end, nodeList);
         nodeList[p].style.backgroundColor = 'green';
-        quickSort(start, p, nodeList)
-        quickSort(p+1, end, nodeList)
+        await quickSort(start, p, nodeList)
+        await quickSort(p+1, end, nodeList)
     }
 }
 
@@ -147,7 +147,7 @@ async function mergeSort(left, right, bars) {
 const fillSortedArray = async (start, end, nodeList) => {
     for(let i=start; i<end; i++){
         nodeList[i].style.backgroundColor = 'green';
-        // nodeList[i].style.transition = '0.2s ease-in-out';
+        nodeList[i].style.transition = '0.2s ease-in-out';
         await makeSleep()
     }
 }
